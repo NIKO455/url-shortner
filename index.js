@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-require('donenv').config();
+require('dotenv').config();
 const databaseURL = process.env.DATABASE_URL
 const PORT = process.env.PORT || 8080;
 
