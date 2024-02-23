@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL Shortener</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Dancing+Script:wght@400..700&display=swap');
+
+        body {
+            background-color: #f8f9fa;
+            font-family: "Caveat", cursive;
+        }
+
+        .search-container {
+            background-image: url("https://img.freepik.com/free-photo/painting-mountain-lake-with-mountain-background_188544-9126.jpg");
+            padding-top: 40px;
+            padding-bottom: 40px;
+            border-radius: 5px;
+            color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .form {
+            display: flex;
+            gap: 20px;
+        }
+
+        input {
+            border-radius: 5px !important;
+            font-size: 20px !important;
+        }
+
+        .click_link a {
+            font-size: 16px;
+            text-decoration: none;
+            font-family: cursive;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        .table {
+            font-size: 18px !important;
+            padding: 100px;
+        }
+
+        .table-responsive {
+            padding-top: 5px;
+            border-radius: 5px;
+            margin-top: 40px;
+            background-color: white;
+        }
+
+        .sr-only {
+            font-weight: 900;
+            font-size: 18px;
+        }
+
+        .short-url-title {
+            color: white;
+            margin-block: 30px !important;
+            font-optical-sizing: auto;
+            font-weight: 900;
+            padding: 10px;
+            border-radius: 5px;
+            background: rgba(114, 112, 112, 0.5);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(9.9px);
+            -webkit-backdrop-filter: blur(9.9px);
+        }
+
+        .button-submit {
+            font-size: 20px !important;
+        }
+
+        @media (max-width: 576px) {
+            input {
+                width: 80vw !important;
+            }
+
+            .search-container {
+                padding: 20px;
+            }
+
+            .form {
+                flex-direction: column;
+            }
+
+            .input-group-append {
+                margin-top: 10px;
+            }
+
+            .table {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="search-container p-4">
+                <div class="text-center mb-4">
+                    <span class="mb-4 h2 short-url-title">Shorten a long link</span>
+                </div>
+                <form method="POST" action="/" class="form-inline justify-content-center">
+                    <label for="generate-url" class="sr-only">Paste a long URL</label>
+                    <div class="input-group mt-2 form">
+                        <input type="url" name="url" class="form-control shadow-none" id="generate-url"
+                               placeholder="Example: https://facebook.com/bhupendrakathayat2a">
+                        <div class="input-group-append">
+                            <button type="submit" class="btn btn-primary button-submit">Generate Short URL</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="table-responsive mt-4">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Short URL</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <% urls.forEach(url => { %>
+                        <tr>
+                            <td class="click_link"><a href="/<%= url.shortID %>"
+                                                      target="_blank">http://localhost:8080/<%= url.shortID %></a></td>
+                            <td>
+                                <div class="btn-group" role="group">
+                                    <form action="/delete/<%= url._id %>" method="post">
+                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    <% }); %>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+</body>
+</html>
