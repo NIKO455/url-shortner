@@ -1,24 +1,25 @@
 const express = require('express');
 const app = express();
-const PORT = 8080;
+require('donenv').config();
+const databaseURL = process.env.DATABASE_URL
+const PORT = process.env.PORT || 8080;
 
 const {dbConnection} = require('./connection')
 const urlRouter = require('./routers/url')
 const path = require('path')
 
-dbConnection('mongodb://localhost:27017/short-url')
+dbConnection(databaseURL)
 
 // set the view engine to ejs
 app.set('view engine', 'ejs')
 
 //middleware
 app.use(express.json())
-app.use(express.urlencoded({extended:false}))
+app.use(express.urlencoded({extended: false}))
 
 // routes
 app.set('views', path.resolve("./views"));
 app.use('/', urlRouter);
-
 
 
 app.listen(PORT, () => {
